@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>My Cashier</title> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark  fixed-top">
+        <span id="store-name" class="ms-2">Nasi Goreng Bu Siti</span>
+        </div>
+        <div style="display: inline-block;">
+            <div class="dropdown" style="display: inline;">
+                <a href="#" class="btn btn-sm btn-primary" id="userInfoDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user"></i>
+                    <span id="userFirstName">Admin</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-light" style="width: 350px;" aria-labelledby="userInfoDropdown">
+                    <div class="dropdown-body">
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="userName"></td>
+                                    <td id="userPosition"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" style="display: inline;">
+                <a href="#" class="btn btn-sm btn-secondary" id="userInfoDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cog"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-light" style="width: 350px;" aria-labelledby="userInfoDropdown">
+                    <a class="dropdown-item" id="user-setting" onclick="user()" href="#"><i class="fa fa-users"></i> Pengaturan Admin/User</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="store-profile-setting" onclick="profil()" href="#"><i class="fa fa-building"></i> Profil Toko</a>
+                </div>
+            </div>
+            <button class="btn btn-sm btn-secondary" onclick="logout()"><i class="fa fa-sign-out-alt"></i></button>
+            <button class="btn btn-sm btn-secondary" onclick="winMinimize()"><i class="fa fa-window-minimize"></i></button>
+            <button class="btn btn-sm btn-danger"onclick="winClose()"><i class="fa fa-times"></i></button>
+        </div>
+    </nav>
+    <div class="isi">
+        <div class="d-flex justify-content-center">
+            <div class="col-md-3 me-2">
+                <div class="box-menu">
+                    <a href="#" class="menu-link" onclick="cashier()">
+                        <img src="./assets/images/icons/cash-machine.png" alt="">
+                    </a>
+                    <div class="box-menu-title">Kasir</div>
+                </div>
+            </div>
+            <div class="col-md-3 me-2">
+                <div class="box-menu">
+                    <a href="#" class="menu-link" onclick="salesReport()">
+                        <img src="./assets/images/icons/report.png" alt="">
+                    </a>
+                    <div class="box-menu-title">Laporan Penjualan</div>
+                </div>
+            </div>
+            <div class="col-md-3 me-2">
+                <div class="box-menu">
+                    <a href="#" class="menu-link" onclick="product()">
+                        <img src="./assets/images/icons/packages.png" alt="">
+                    </a>
+                    <div class="box-menu-title">Data Produk</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- <script src="./assets/bootstrap/js/bootstrap.min.js"></script> -->
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const electron = require('electron')
+        const {ipcRenderer} = electron
+
+        product = () => {
+            ipcRenderer.send('load:product-window')
+        }
+
+        cashier = () => {
+            ipcRenderer.send('load:cashier-window')
+        }
+
+        salesReport = () => {
+            ipcRenderer.send('load:sales-report-window')
+        }
+
+        user = () => {
+            ipcRenderer.send('load:user-setting-modal')
+        }
+
+        profil = () => {
+            ipcRenderer.send('load:profil-setting-modal')
+        }
+
+        winMinimize = () => {
+            ipcRenderer.send('window:minimize')
+        }
+        winClose = () => {
+            ipcRenderer.send('window:close')
+        }
+
+        ipcRenderer.on('load:overlay', (e, storeObject) => {
+            let overlay = `<div class="overlay"></div>`
+            $('body').prepend(overlay)
+            // $('#store-name').html(storeObject.name)
+            if(storeObject.logo == null || storeObject.logo == "") {
+                $('#store-logo').attr('src', './assets/images/icons/store.png')
+            } else {
+                $('#store-logo').attr('src',`./assets/images/icons/${storeObject.logo}`)
+            }
+        })
+
+        unCurtain = (storeObject, userName, userPosition, userAccessLevel) => {
+            $('.overlay').addClass('out')
+            $('.overlay').removeClass('in')
+            $('#store-name').html(storeObject.name)
+            $('#userName').html(userName)
+            $('#userPosition').html(userPosition)
+            $('#userAccessLevel').html(userAccessLevel)
+            switch(userAccessLevel) {
+                case 'main_user':
+                    $('#user-setting, #store-profil-setting').removeClass('disabled')
+                    break
+                default:
+                    $('#user-setting, #store-profil-setting').addClass('disabled')
+                    break
+            }
+            if(storeObject.logo == null || storeObject.logo == "") {
+                $('#store-logo').attr('src', `./assets/images/icons/store.png`)
+            } else {
+                $('#store-logo').attr('src',`./assets/images/logo/${storeObject.logo}`)
+            }
+        }
+        ipcRenderer.on('unlock:app', (e, storeObject, userId, firstName, position, accessLevel) => {
+            unCurtain(storeObject, firstName, position, accessLevel)
+        })
+        logout = () => {
+            $('.overlay').addClass('in')
+            $('.overlay').removeClass('out')
+            ipcRenderer.send('submit:logout')
+        }
+        setting = (type) => {
+        // Handle the setting functionality based on the 'type' parameter
+        if (type === 'user') {
+            // Code for handling user settings
+        } else if (type === 'profil') {
+            // Code for handling store profile settings
+        }
+    }
+    </script>
+</body>
+</html>

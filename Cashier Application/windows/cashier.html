@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+</head>
+<body style="background-color: #F0F3F4;">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div style="display: inline-block; font-size: 13px; color: aliceblue;">
+            <!-- <img src="" class="ms-2" id="store-logo" width="30" height="30" alt=""> -->
+            <span id="store-name"></span>
+        </div>
+    </nav>
+    <div style="padding: 70px 0px 10px 0px;">
+        <div class="row small-gutters">
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h6>
+                            <img src="../assets/images/icons/small-cashier-machine.png" class="me-sm-1" alt=""> Cashier
+                            <button onclick="salesModal('qty')" class="btn btn-sm btn-light btn-light-bordered mb-2 me-sm-1 float-end" title="Edit Qty" id="edit-qty"><i class="fas fa-dolly"></i></button>
+                            <button class="btn btn-sm btn-light btn-light-bordered mb-2 me-sm-1 float-end" title="Tambah Penjualan" id="btn-new-sales" data-bs-toggle="modal" data-bs-backdrop="false" data-bs-target="#modal-new-sales" onclick="salesNumber(); loadBuyer()" autofocus><i class="fa fa-plus"></i></button>
+                        </h6>
+                    </div>
+                    <div class="box-body">
+                        <div class="row g-3">
+                            <div class="col-auto">
+                                <div class="btn-group mb-2">
+                                    <input type="text" class="form-control form-control-sm sales-input" id="product_code" placeholder="Kode/Barcode Produk" disabled>
+                                    <button id="btn_add_sales" onclick="insertSales()" class="btn btn-sm btn-primary sales-input" disabled><i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <select name="" id="product_name" onchange="getCodeByName()" class="form-select form-select-sm mb-2 sales-input" disabled></select>
+                            </div>
+                        </div>
+                        <div class="sales-record">
+                            <div class="table-responsive mt-2" style="height: 250px;">
+                                <table class="table table-sm table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Nama Produk</th>
+                                            <th>Kode Produk</th>
+                                            <th><span class="float-end">Harga</span></th>
+                                            <th style="text-align: center;">Qty</th>
+                                            <th><span class="float-end">Total</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sales-data"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td><span class="float-end"><b>Total</b></span></td>
+                                        <td><span class="float-end" id="total-and-tax" style="font-weight: bold;"></span></td>
+                                        <input type="hidden" id="input-total-and-tax">
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box-footer" style="margin-left:0px; margin-right: 0px;">
+                        <button class="btn btn-sm btn-primary float-end" onclick="salesModal('checkout')" id="btn-checkout"><i class="fa fa-sign-out"></i> Print</button>
+                        <button class="btn btn-sm btn-light btn-light-bordered" id="btn-close-cashier" onclick="closeCashier()"><i class="fa fa-times"></i> Close Cashier</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box-common">
+                    <table class="table table-bordered" style="font-size: 14px; border: 1px solid #B3B6B7">
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-warning"><i class="fa fa-calendar"></i></span> Tanggal</td>
+                                <td>: <span id="info-sales-date"></span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-secondary"><i class="fa fa-file"></i></span> No. Nota/Struk</td>
+                                <td>: <span id="info-sales-number"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="divider" style="margin-top:0px"></div>
+                    <div class="box-info">
+                        <div class="box-info-body" style="background-color: #f8f9fa;">
+                            <div class="box-info-left"><i class="fa fa-shopping-cart"></i></div>
+                            <div class="box-info-right float-end"><h3 id="info-total-sales"></h3></div>
+                        </div>
+                        <div class="box-info-title">Total Belanja</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade sales-modal" id="modal-new-sales" role="dialog" aria-labelledby="modal-new-sales" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content with-shadow">
+                <div class="modal-header bg-custom-dark">
+                    Penjualan Baru
+                    <a href="#" type="button" class="close" style="color:white" data-bs-dismiss="modal">
+                        <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <input type="text" class="form-control form-control-sm" placeholder="Nomor Nota" id="sales-number" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-primary" id="btn-create-new-sales" onclick="openSales()" autofocus><i class="fa fa-check"></i> Buat Penjualan</button>
+                    <button data-bs-dismiss="modal" class="btn btn-sm btn-secondary"><i class="fa fa-times-circle"></i> Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/jquery/jQuery 3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="../assets/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/js/requier.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/cashier.js"></script>
+</body>
+</html>

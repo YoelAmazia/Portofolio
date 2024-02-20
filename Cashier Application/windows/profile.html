@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body style="background-color: #F0F3F4" id="profil-setting" onload="getData()">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h6>Profile Toko</h6>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td>Nama Toko</td>
+                                        <td>:
+                                            <span class="span-profil" id="store-name"></span>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm input-profil" id="input-store-name">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td>:
+                                            <span class="span-profil" id="store-address"></span>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm input-profil" id="input-store-address">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <tr>
+                                        <td>No. telp</td>
+                                        <td>:
+                                            <span class="span-profil" id="store-telp"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm input-profil" id="input-store-telp">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <button class="btn btn-sm btn-light btn-light-bordered btn-edit" id="btn-cancel-edit" onclick="cancelEdit()"><i class="fa fa-times"></i> Cancel</button> 
+                        <button class="btn btn-sm btn-primary btn-edit" onclick="submitProfil()" id="btn-submit-profil"><i class="fa fa-paper-plane"></i> Submit</button>
+                        <button class="btn btn-sm btn-light btn-light-bordered" id="btn-change" onclick="showInputProfil()"><i class="fa fa-edit"></i> Change</button>  
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="../assets/jquery/jQuery 3.5.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/js/requier.js"></script>
+    <script>
+        const path = require('path')
+        const fs = require('fs')
+        
+        alertFade = () => {
+            $('#alert').html("")
+        }
+
+        getData = () => {
+            db.all(`select * from profil order by id asc limit 1`, (err, row) => {
+                if(err) throw err
+                if(row.length < 1) {
+                    $('.span-profil').html("")
+                } else {
+                    $('#store-name').html(row[0].store_name)
+                    $('#store-address').html(row[0].store_address)
+                    $('#store-telp').html(row[0].phone_number)
+                    if(row[0].logo == null || row[0].logo == "") {
+                        $('#store-logo').attr('src', `../assets/images/logo/shop.png`)
+                    } else {
+                        $('#store-logo').attr('src', `../assets/images/logo/${row[0].logo}`)
+                    }
+                }
+                
+            })
+        }
+        showInputProfil = () => {
+            $('.input-profil, .btn-edit').css('display','initial')
+            $('.span-profil, #btn-change').css('display','none')
+            $('#input-store-name').focus()
+            db.all(`select * from profil order by id asc limit 1`, (err, row) => {
+                if(err) throw err
+                if(row.length < 1) {
+                    $('.input-profil').val("")
+                } else {
+                    $('#input-store-name').val(row[0].store_name)
+                    $('#input-store-address').val(row[0].store_address)
+                    $('#input-store-telp').val(row[0].phone_number)
+                }
+            })
+        }
+        cancelEdit = () => {
+            $('.input-profil, .btn-edit').css('display','none')
+            $('.span-profil, #btn-change').css('display','initial')
+        }
+        submitProfil = () => {
+            let name = $('#input-store-name').val()
+            let address = $('#input-store-address').val()
+            let telp = $('#input-store-telp').val()
+
+            let query = `update profil set store_name = '${name}', store_address = '${address}', phone_number = '${telp}' where id = 1`
+            
+            db.run(query, err => {
+                if(err) throw err
+                $('.input-profil, .btn-edit').css('display','none')
+                $('.span-profil, #btn-change').css('display','initial')
+                getData()
+            })
+        }
+    </script>
+</body>
+</html>

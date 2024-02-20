@@ -1,0 +1,15 @@
+<div class="my-3">
+<h4>Tambahkan Kegiatan</h4>
+<form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" [(ngModel)]="title" class="form-control" 
+      name = "title" id="title" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="desc" class="form-label">Description</label>
+      <input type="text" [(ngModel)]="desc" class="form-control" name = "desc" id="desc">
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary">Add</button>
+  </form>
+</div>

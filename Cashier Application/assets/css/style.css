@@ -1,0 +1,247 @@
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #f2f3f4;
+}
+.title{
+    display: inline-block;
+    color: black;
+}
+span{
+    font-size: 14.5px;
+}
+
+.table{
+    font-size: 13px;
+    border-radius: 100%;
+    text-align: center;
+}
+
+.isi{
+    padding: 175px 20px 20px 20px;
+}
+
+.box-menu{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid #cacfd2;
+    border-radius: 5px;
+    display: block;
+}
+
+.box-menu > a.menu-link{
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.box-menu > a.menu-link:hover{
+    background-color: #ecf0f1;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.box-menu-title{
+    padding: 2px 2px 4px 2px;
+    text-align: center;
+    color: white;
+    background-color: #049efc;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 13px;
+}
+
+.navbar{
+    background-color: #00ccff;
+}
+
+.dropdown-body{
+    padding: 10px;
+}
+
+.btn-light-bordered{
+    border: 1px solid #dbd3d4;
+}
+
+.btn-light-bordered:hover{
+    border: 1px solid #dbd3d4;
+    background-color: #e5e7e9;
+}
+
+.toolbar{
+    position: relative;
+    top: 0px;
+    background-color: white;
+    width: 100%;
+    border-bottom: 2px solid #dbd3d4;
+    z-index: 997;
+}
+
+.toolbar-menu{
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.table-produk{
+    padding: 20px 20px 20px 20px;
+}
+
+/* #main-table{
+    width: auto;
+    overflow: auto;
+}
+
+#form-add-data{
+    display: none;
+    background-color: #ecf0f1;
+} */
+
+.small-gutters {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.small-gutters > .col,
+.small-gutters > [class*="col-"] {
+    padding-right: 10px;
+    padding-left: 10px
+}
+
+.box, .box-common {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    z-index: 996;
+    border-radius: 5px;
+    display: block;
+    margin-bottom: 17px;
+    border: 1px solid #D0D3D4;
+}
+
+.box.no-border {
+    border: 0px;
+}
+
+.box-header::before,
+.box-body::before,
+.box-footer::before,
+.box-header::after,
+.box-body::after,
+.box-footer::after {
+    content: " ";
+    display: table;
+}
+
+.box-header::after,
+.box-body::after,
+.box-footer::after {
+    clear: both;
+}
+
+.box-header {
+    font-size: 24px;
+    color: #7B7D7D;
+    padding: 15px 15px 15px;
+}
+
+.box-header.no-padding{
+    padding: 0px 0px 5px;
+}
+
+.box-header>h2 {
+    font-size: 20px;
+}
+
+.box-header.with-border {
+    border-bottom: 5px solid #C7CBCC;
+}
+
+.box-body {
+    color: #7B7D7D;
+    margin: 15px 15px 15px 15px;
+    font-size: 14px;
+}
+
+.box-body-no-margin {
+    margin: 15px 0px 0px 0px;
+}
+
+.box-footer {
+    border-top : 5px solid #ECF0F1;
+    color: #7B7D7D;
+    padding: 15px 15px 15px;
+}
+
+.box-common {
+    padding: 15px 15px;
+}
+
+.box-info {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    background-color: #ECF0F1;
+}
+
+.box-info-body {
+    padding: 15px 15px;
+    border-left: 1px solid #B3B6B7;
+    border-right: 1px solid #B3B6B7;
+    border-top: 1px solid #B3B6B7;
+    border-top-right-radius: 5px;
+}
+
+.box-info-right {
+    display: inline;
+}
+
+.box-info-right>h3 {
+    font-weight: bold;
+}
+
+.box-info-left {
+    display: inline;
+    font-size: 30px;
+}
+
+.box-info-title {
+    background-color: rgb(233, 77, 77);
+    color: #ECF0F1;
+    padding: 2px 2px 4px 15px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 14px
+}
+
+.box-info-title.no-bg-color{
+    background-color: #ECF0F1;
+    color: black;
+    font-size: 15px;
+    border-left: 1px solid #B3B6B7;
+    border-right: 1px solid #B3B6B7;
+    border-bottom: 1px solid #B3B6B7;
+    border-top: 1px solid #B3B6B7;
+}
+
+.overlay {
+    display: block;
+    position: fixed;
+    background: rgba(13, 148, 238);
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease-in-out;
+    z-index: 1000;
+}
+.overlay.out{
+    height: 0%
+}
+.overlay.in{
+    height: 100%
+}

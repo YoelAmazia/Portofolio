@@ -1,0 +1,65 @@
+body{
+    margin: 0;
+    padding: 0;
+    
+}
+.collapse{
+    justify-content: center;
+    font-family: DM Serif Display;
+    
+    font-weight: bold;
+}
+.navbar{
+    font-family: DM Serif Display;
+    font-weight: bold;
+    
+}
+.container{
+    font-family: DM Serif Display;
+    font-weight: bold;
+    font-size: large;
+}
+.see{
+    font-family: DM Serif Display;
+    font-weight: bold;
+    color: black;
+}
+
+.footer1{
+    
+    font-family: DM Serif Display;
+    font-weight: bold;
+    font-size: large;
+    color: black;
+}
+
+.footer2{
+    font-family: DM Serif Display;
+    font-weight: bold;
+    font-size: large;
+    color: black;
+}
+.card-text{
+    color: black;
+}
+.box{
+    margin: 0;
+    padding: 0;
+    /* background-color: grey; */
+    font-family: DM Serif Display;
+    font-weight: bold;
+    font-size: large;
+
+}
+
+.card{
+    margin-left:7px ;
+    margin-right: 7px;
+}
+
+.pagination{
+    font-family: DM Serif Display;
+    font-weight: bold;
+    font-size: large;
+    color: black;
+}

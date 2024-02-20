@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body id="product-data">
+    <nav class="navbar navbar-dark" >
+        <div class="title"><span id="store-name" class="ms-2">Product</span>
+        </div>
+        <div style="display: inline-block;">
+            <div class="dropdown" style="display: inline;">
+                <a href="#" class="btn btn-sm btn-primary" id="userInfoDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user"></i>
+                    <span id="userFirstName">Admin</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-light" style="width: 350px;" aria-labelledby="userInfoDropdown">
+                    <div class="dropdown-body">
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="userName"></td>
+                                    <td id="userPosition"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </nav>
+    <div class="toolbar">
+        <div class="toolbar-menu">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="main-toolbar">
+                        <div class="row form-inline">
+                            <div class="form-inline">
+                                <!-- <button class="btn btn-sm btn-light btn-light-bordered" id="add-data" title="Tambah Data" onclick="openFormAddData()"><i class="fa fa-plus"></i></button>
+                                <button class="btn btn-sm btn-light btn-light-bordered"><i class="fa fa-trash"></i></button> -->
+                                <button class="btn btn-sm btn-light btn-light-bordered" title="Export CSV" onclick="exportData('csv')"><i class="fa fa-file-excel"></i></button>
+                                <!-- <button class="btn btn-sm btn-light btn-light-bordered" title="Export PDF" onclick="exportData('pdf')"><i class="fa fa-file-pdf"></i></button> -->
+                                <button class="btn btn-sm btn-light btn-light-bordered" title="Print Table" onclick="printData()"><i class="fa fa-print"></i></button>
+                                <!-- <button class="btn btn-sm btn-light btn-light-bordered"><i class="fa fa-check"></i></button>
+                                <button class="btn btn-sm btn-light btn-light-bordered"><i class="fa fa-times"></i></button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="main-table">
+        <div id="form-add-data">
+            <div style="padding: 20px 20px 20px 20px;">
+                <h6>Tambah data</h6>
+                <div style="color: black;" class="row">
+                    <div class="col-auto">
+                        <input type="text" class="form-control form-control-sm" placeholder="Kode Produk" id="product_code" required>
+                    </div>
+                    <!-- <div class="col-auto">
+                        <input type="file" name="Image" class="form-control form-control-sm" id="image" required>
+                    </div> -->
+                    <div class="col-auto">
+                        <input type="text" class="form-control form-control-sm" placeholder="Nama Produk" id="product_name" required>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="far fa-money-bill-alt"></i></span>
+                            <input type="text" class="form-control form-control-sm" id="Harga_jual" placeholder="Harga Jual" required>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="far fa-money-bill-alt"></i></span>
+                            <input type="text" class="form-control form-control-sm" placeholder="Harga Modal" id="Harga_modal" required>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-auto">
+                        <button class="btn btn-sm btn-primary" onclick="insertProduct()"><i class="fa fa-paper-plane"></i> Submit</button>
+                        <!-- <button class="btn btn-sm btn-secondary" id="close-form-add-data" onclick="closeFormAddData()"><i class="fa fa-times"></i> Tutup</button> -->
+                    </div>
+                </div>
+            </div> 
+        </div>
+    <div id="main-table">
+        <div class="table-produk">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div id="alert"></div>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light" id="col-head">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Kode Produk</th>
+                                    <th>Nama Produk</th>
+                                    <th>Harga Modal</th>
+                                    <th>Harga Jual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/requier.js"></script>
+    <script src="../assets/js/toolbar.js"></script>
+    <script src="../assets/js/product.js"></script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
